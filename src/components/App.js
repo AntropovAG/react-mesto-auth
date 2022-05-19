@@ -53,9 +53,11 @@ function App() {
   function handleCardDelete() {
     const id = currentCardId.id;
     api.deleteCard(id)
-      .then(setCards((state) => state.filter((card) => card.id !== id && card)))
+      .then(setCards((state) => {
+        state.filter((card) => card.id !== id && card);
+        setIsConfirmPopupOpen(false);
+      }))
        .catch((err) => console.log(err))
-    setIsConfirmPopupOpen(false);
   }
 
   function closeAllPopups() {
@@ -155,7 +157,8 @@ function App() {
           setIsLoggedIn(true);
           history.push("/");
         }
-      });
+      })
+        .catch(err =>console.log(err))
     }
   }
 
