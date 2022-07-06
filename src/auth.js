@@ -1,4 +1,4 @@
-const baseURL = "https://auth.nomoreparties.co";
+const baseURL = "http://localhost:3001";
 const checkResponse = (res) => {return res.ok ? res.json() : Promise.reject(`Ошибка ${res.status}`)}
 
 export function register(userEmail, password) {
@@ -14,6 +14,7 @@ export function login(userEmail, password) {
   return fetch(`${baseURL}/signin`, {
     method: 'POST',
     headers: { "Content-Type": "application/json" },
+    credentials: 'include',
     body: JSON.stringify(userEmail, password)
   })
     .then(checkResponse);
@@ -24,8 +25,8 @@ export function checkTokenValidity(token) {
     method: 'GET',
     headers: {
     "Content-Type": "application/json",
-    "Authorization" : `Bearer ${token}`
-  }
+  },
+  credentials: 'include',
   })
     .then(checkResponse);
 }

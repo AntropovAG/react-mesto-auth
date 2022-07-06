@@ -152,8 +152,8 @@ function App() {
       checkTokenValidity(jwt)
         .then((res) => {
         if (res) {
-          console.log(res);
-          setUserEmail(res.data["email"]);
+          console.log('успешно прошло проверку', res)
+          setUserEmail(res.email);
           setIsLoggedIn(true);
           history.push("/");
         }
